@@ -5,13 +5,13 @@
   2016
 */
 /*
-	Variables
+  Variables
 */
 /*
-	Funciones
+  Funciones
 */
 /*
-	Propiedades de todos los elementos contenedores
+  Propiedades de todos los elementos contenedores
 */
 .box {
   height: 200px;
@@ -21,7 +21,7 @@
   clear: both; }
 
 /*
-	Colores y propiedades de los contenedores
+  Colores y propiedades de los contenedores
 */
 .b1 {
   background: #7aeb7a; }
@@ -67,7 +67,7 @@
   background: #189a18; }
 
 /*
-	MEDIA QUERIES PARA HACERLO RESPONSIVE
+  MEDIA QUERIES PARA HACERLO RESPONSIVE
 */
 /* TABLET */
 @media only screen and (min-width: 480px) {
