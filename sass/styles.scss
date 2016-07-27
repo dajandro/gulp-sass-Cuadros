@@ -4,113 +4,151 @@
   Sistemas y Tecnologias Web
   2016
 */
-/*
-	Variables
-*/
-/*
-	Funciones
-*/
-/*
-	Propiedades de todos los elementos contenedores
-*/
-.box {
-  height: 200px;
-  margin-bottom: 10px; }
-
-.clear {
-  clear: both; }
 
 /*
-	Colores y propiedades de los contenedores
+  Variables
 */
-.b1 {
-  background: #7aeb7a; }
+$base-color: lightgreen;
+$boxes-height: 200px;
+$boxes-qty: 7;
+$button-color: gray;
+$button-widht: 150px;
+$input-color: lightblue;
+$input-height: 75px;
+$margin-bottom: 10px;
+$min-width-PC: 768px;
+$min-width-Tablet: 480px;
+$padding: 5px;
+$step-color: 5;
 
-.b2 {
-  background: #64e764; }
-
-.b3 {
-  background: #4ee44e; }
-
-.b4 {
-  height: 75px;
-  margin-bottom: 10px;
-  padding-right: 150px;
-  position: relative; }
-
-.b4 input[type="text"] {
-  background: lightblue;
+/*
+  Funciones
+*/
+@mixin input-text($bc){
+  background: $bc;
   box-sizing: border-box;
   display: block;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+}
 
-.b4 input[type="button"] {
-  background: gray;
+@mixin input-btn($bc){
+  background: $bc;
   float: right;
   height: 100%;
   position: absolute;
   right: 0;
-  top: 0;
-  width: 150px; }
+  top: 0; 
+  width: $button-widht;
+}
 
-.b5 {
-  background: #22dd22; }
-
-.b6 {
-  background: #1ec71e; }
-
-.b7 {
-  background: #1bb01b; }
-
-.b8 {
-  background: #189a18; }
+@mixin fs-column-wrapper($qty, $width, $isTablet){
+  @if $qty==2{
+    .first-column-wrapper-2,
+    .second-column-wrapper-2{
+      box-sizing: border-box;
+      float: left;
+      width: $width;
+    }
+  }
+  @if $qty==3{
+    .first-column-wrapper-3,
+    .second-column-wrapper-3{
+      @if $isTablet==1{
+        box-sizing: border-box;
+        float: left;
+      }
+      width: $width;
+    }
+  }
+}
 
 /*
-	MEDIA QUERIES PARA HACERLO RESPONSIVE
+  Propiedades de todos los elementos contenedores
 */
+.box{
+  height: $boxes-height;
+  margin-bottom: $margin-bottom;
+}
+
+
+.clear{
+  clear: both;
+}
+
+/*
+  Colores y propiedades de los contenedores
+*/
+
+@for $i from 1 through ($boxes-qty+1){
+    @if $i==4{
+      .b#{$i}{
+        height: $input-height;
+        margin-bottom: $margin-bottom;
+        padding-right: $button-widht;
+        position: relative;
+      }
+      .b#{$i} input[type="text"]{
+        @include input-text($input-color);  
+      }
+      .b#{$i} input[type="button"]{
+        @include input-btn($button-color);
+      }
+    }
+    @if $i!=4 {.b#{$i}{ background: darken($base-color, $step-color*$i);}}
+}
+
+/*
+  MEDIA QUERIES PARA HACERLO RESPONSIVE
+*/
+
 /* TABLET */
-@media only screen and (min-width: 480px) {
-  .first-column-wrapper-3,
-  .second-column-wrapper-3 {
+@media only screen and (min-width: $min-width-Tablet){
+  @include fs-column-wrapper(3,50%,1);
+
+  .first-column-wrapper-3{
+    padding-right: $padding;
+  }
+
+  .second-column-wrapper-3{
+    padding-left: $padding;
+  }
+
+  .third-column-wrapper-3{
     box-sizing: border-box;
-    float: left;
-    width: 50%; }
-  .first-column-wrapper-3 {
-    padding-right: 5px; }
-  .second-column-wrapper-3 {
-    padding-left: 5px; }
-  .third-column-wrapper-3 {
-    box-sizing: border-box;
-    clear: both; }
-  .first-column-wrapper-2,
-  .second-column-wrapper-2 {
-    box-sizing: border-box;
-    float: left;
-    width: 100%; } }
+    clear: both;
+  }
+
+  @include fs-column-wrapper(2,100%,1); 
+}
 
 /* PC */
-@media only screen and (min-width: 768px) {
-  .first-column-wrapper-3,
-  .second-column-wrapper-3 {
-    width: 33.33%; }
-  .second-column-wrapper-3 {
-    padding-right: 5px; }
-  .first-column-wrapper-2,
-  .second-column-wrapper-2 {
-    box-sizing: border-box;
-    float: left;
-    width: 50%; }
-  .first-column-wrapper-2 {
-    padding-right: 5px; }
-  .second-column-wrapper-2 {
-    padding-left: 5px; }
-  .third-column-wrapper-3 {
+@media only screen and (min-width: $min-width-PC){
+  @include fs-column-wrapper(3,33.33%,0); 
+
+  .second-column-wrapper-3{
+    padding-right: $padding;
+  }
+
+  @include fs-column-wrapper(2,50%,0);
+  
+  .first-column-wrapper-2{
+    padding-right: $padding;
+  }
+  .second-column-wrapper-2{
+    padding-left: $padding;
+  }
+
+  .third-column-wrapper-3{
     clear: none;
     float: left;
     padding-left: 5px;
-    width: 33.34%; }
-  .b4 {
-    clear: both; }
-  .b8 {
-    clear: both; } }
+    width: 33.34%;
+  }
+  .b4{
+    clear: both;
+  }
+  .b8{
+    clear: both;
+  }
+}
